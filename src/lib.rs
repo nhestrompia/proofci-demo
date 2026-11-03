@@ -26,3 +26,9 @@ pub fn transfer(accounts: Accounts, amount: u64) -> Option<Accounts> {
     }
     Some(Accounts { from: accounts.from - amount, to: accounts.to + amount })
 }
+
+/// What the receiver gets after the fee. Cannot underflow: ProofCI's
+/// `fees/fee-capped` guarantee proves the fee never exceeds the amount.
+pub fn net_amount(amount: u64, fee_bps: u64) -> u64 {
+    amount - calculate_fee(amount, fee_bps)
+}
