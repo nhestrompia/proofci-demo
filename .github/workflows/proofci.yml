@@ -1,0 +1,19 @@
+name: ProofCI
+on:
+  pull_request_target:          # the workflow and policy come from the base branch
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pull-requests: read           # only to read approvals of policy changes
+jobs:
+  proofci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: nhestrompia/proofci@1456afbf8f08332c77644a1ef55ed34b3f5a3a84
+        with:
+          path: .
+          # linux/amd64 toolchain published from nhestrompia/proofci@1456afb
+          image: ghcr.io/nhestrompia/proofci-toolchain@sha256:0858ce7c6ee10f14ccd9505764f8a209cfb481ec76dfc02e04476c57896834e4
