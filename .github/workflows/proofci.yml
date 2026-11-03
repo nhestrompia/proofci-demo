@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: nhestrompia/proofci@08bc1f8cd173cc0c37f69a80cfaa21e80e525d9c
+      - uses: nhestrompia/proofci@v0.1.0
         with:
           path: .
