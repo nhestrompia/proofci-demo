@@ -3,11 +3,11 @@
 /// Basis points in 100%.
 pub const BPS_DENOMINATOR: u64 = 10_000;
 
-/// Fee charged on `amount` at `fee_bps` basis points, rounded down.
+/// Fee charged on `amount` at `fee_bps` basis points, rounded up.
 /// Rates above 100% are capped at 100%.
 pub fn calculate_fee(amount: u64, fee_bps: u64) -> u64 {
     let bps = if fee_bps > BPS_DENOMINATOR { BPS_DENOMINATOR } else { fee_bps };
-    amount / BPS_DENOMINATOR * bps + amount % BPS_DENOMINATOR * bps / BPS_DENOMINATOR
+    amount / BPS_DENOMINATOR * bps + (amount % BPS_DENOMINATOR * bps + BPS_DENOMINATOR - 1) / BPS_DENOMINATOR + 1
 }
 
 pub struct Accounts {
