@@ -26,3 +26,15 @@ pub fn transfer(accounts: Accounts, amount: u64) -> Option<Accounts> {
     }
     Some(Accounts { from: accounts.from - amount, to: accounts.to + amount })
 }
+
+/// Why a payment was refused.
+#[derive(Debug, PartialEq, thiserror::Error)]
+pub enum PaymentError {
+    #[error("the sender cannot cover the amount")]
+    Overdraft,
+}
+
+/// `transfer`, with a typed error for callers that want one.
+pub fn pay(accounts: Accounts, amount: u64) -> Result<Accounts, PaymentError> {
+    transfer(accounts, amount).ok_or(PaymentError::Overdraft)
+}
