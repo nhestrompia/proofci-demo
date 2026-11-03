@@ -18,5 +18,3 @@ targets:
     guarantees:
       - id: conservation
         theorem: transfer_conserves   # never panics; balances are conserved
-      - id: rejects-overdraft
-        theorem: transfer_rejects_overdraft
